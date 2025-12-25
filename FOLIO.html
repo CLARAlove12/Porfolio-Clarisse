@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Développeur Web</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Variables */
+        :root {
+            --primary: #4a6cf7;
+            --secondary: #6c63ff;
+            --dark: #2c3e50;
+            --light: #f9f9f9;
+            --accent: #3498db;
+            --success: #2ecc71;
+            --warning: #f39c12;
+        }
+
+        /* Styles de base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+        }
+
+        .conteneur {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-titre {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+            color: var(--dark);
+            position: relative;
+        }
+
+        .section-titre::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .bouton {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+        }
+
+        .bouton:hover {
+            background: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        /* En-tête */
+        .en-tete {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .en-tete-contenu {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        /* Menu hamburger */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--dark);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-navigation ul {
+            display: flex;
+            list-style: none;
+        }
+
+        .menu-navigation li {
+            margin-left: 30px;
+        }
+
+        .menu-navigation a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            transition: color 0.3s;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .menu-navigation a:hover {
+            color: var(--accent);
+        }
+
+        .menu-navigation a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .menu-navigation a:hover::after {
+            width: 100%;
+        }
+
+        /* Section Accueil */
+        .section-accueil {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .accueil-contenu {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .accueil-texte {
+            flex: 1;
+            padding-right: 50px;
+            z-index: 2;
+        }
+
+        .accueil-titre {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+            line-height: 1.2;
+        }
+
+        .accueil-titre span {
+            color: var(--accent);
+        }
+
+        .accueil-description {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        .accueil-image {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .avatar-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 320px;
+            height: 320px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .avatar-icon {
+            font-size: 10rem;
+            color: white;
+        }
+
+        /* Section À propos */
+        .section-a-propos {
+            padding: 100px 0;
+            background-color: #fff;
+        }
+
+        .a-propos-contenu {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .a-propos-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .code-container {
+            background: linear-gradient(135deg, #1e2a78, #152852);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            color: white;
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .code-lines {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .code-lines::before {
+            content: '1\A 2\A 3\A 4\A 5\A 6\A 7\A 8\A 9\A 10\A 11\A 12\A 13\A 14\A 15';
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: rgba(255, 255, 255, 0.4);
+            white-space: pre;
+        }
+
+        .code-line {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        .code-comment {
+            color: #5d8aa8;
+        }
+
+        .code-keyword {
+            color: #ff79c6;
+        }
+
+        .code-function {
+            color: #50fa7b;
+        }
+
+        .code-string {
+            color: #f1fa8c;
+        }
+
+        .code-variable {
+            color: #bd93f9;
+        }
+
+        .a-propos-texte {
+            flex: 1;
+        }
+
+        .a-propos-titre {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .a-propos-paragraphe {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        /* Section Compétences */
+        .section-competences {
+            padding: 100px 0;
+            background-color: var(--light);
+        }
+
+        .competences-grille {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .competence-carte {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .competence-carte:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .competence-icone {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(52, 152, 219, 0.1);
+            color: var(--accent);
+        }
+
+        .competence-titre {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .competence-description {
+            color: #555;
+        }
+
+        /* Nouvelles compétences */
+        .competence-icone.html { color: #e34f26; background: rgba(227, 79, 38, 0.1); }
+        .competence-icone.css { color: #264de4; background: rgba(38, 77, 228, 0.1); }
+        .competence-icone.js { color: #f7df1e; background: rgba(247, 223, 30, 0.1); }
+        .competence-icone.git { color: #f05032; background: rgba(240, 80, 50, 0.1); }
+        .competence-icone.tailwind { color: #38bdf8; background: rgba(56, 189, 248, 0.1); }
+        .competence-icone.vue { color: #41b883; background: rgba(65, 184, 131, 0.1); }
+        .competence-icone.php { color: #777bb4; background: rgba(119, 123, 180, 0.1); }
+
+        /* Section Projets */
+        .section-projets {
+            padding: 100px 0;
+            background-color: #fff;
+        }
+
+        .projets-grille {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .projet-carte {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .projet-carte:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .projet-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .projet-icon {
+            font-size: 4rem;
+            opacity: 0.9;
+        }
+
+        .projet-info {
+            padding: 20px;
+        }
+
+        .projet-titre {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .projet-description {
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        /* Section Contact */
+        .section-contact {
+            padding: 100px 0;
+            background-color: var(--light);
+        }
+
+        .contact-contenu {
+            display: flex;
+            gap: 50px;
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-info-carte {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .contact-info-titre {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .contact-info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .contact-info-icone {
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .contact-formulaire {
+            flex: 1;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .formulaire-groupe {
+            margin-bottom: 20px;
+        }
+
+        .formulaire-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .formulaire-input,
+        .formulaire-textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .formulaire-input:focus,
+        .formulaire-textarea:focus {
+            border-color: var(--accent);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+
+        .formulaire-textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        /* Pied de page */
+        .pied-de-page {
+            background: var(--dark);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .pied-de-page-contenu {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .liens-sociaux {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .lien-social {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .lien-social:hover {
+            background: #2980b9;
+            transform: translateY(-5px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .copyright {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #ecf0f1;
+        }
+
+        /* === RESPONSIVE === */
+
+        /* Tablettes (768px - 992px) */
+        @media (max-width: 992px) {
+            .conteneur {
+                width: 95%;
+                padding: 0 15px;
+            }
+
+            .section-titre {
+                font-size: 2.2rem;
+                margin-bottom: 40px;
+            }
+
+            /* Accueil */
+            .accueil-contenu {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .accueil-texte {
+                padding-right: 0;
+                margin-bottom: 40px;
+            }
+
+            .accueil-titre {
+                font-size: 2.8rem;
+            }
+
+            .accueil-description {
+                font-size: 1.1rem;
+            }
+
+            .avatar-container {
+                width: 280px;
+                height: 280px;
+            }
+
+            .avatar-icon {
+                font-size: 9rem;
+            }
+
+            /* À propos */
+            .a-propos-contenu {
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            .a-propos-image {
+                margin-bottom: 0;
+            }
+
+            .a-propos-titre {
+                font-size: 2rem;
+            }
+
+            .code-container {
+                padding: 25px;
+            }
+
+            /* Compétences */
+            .competences-grille {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+                gap: 25px;
+            }
+
+            /* Projets */
+            .projets-grille {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 25px;
+            }
+
+            /* Contact */
+            .contact-contenu {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .contact-info-titre {
+                font-size: 1.6rem;
+            }
+        }
+
+        /* Tablettes portrait et grands mobiles (481px - 768px) */
+        @media (max-width: 768px) {
+            .en-tete-contenu {
+                padding: 15px 0;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            /* Menu hamburger visible */
+            .menu-toggle {
+                display: flex;
+            }
+
+            .menu-navigation {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                background: white;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                transition: left 0.3s ease;
+            }
+
+            .menu-navigation.active {
+                left: 0;
+            }
+
+            .menu-navigation ul {
+                flex-direction: column;
+                padding: 20px 0;
+            }
+
+            .menu-navigation li {
+                margin: 0;
+                padding: 15px 30px;
+                border-bottom: 1px solid #f0f0f0;
+            }
+
+            .menu-navigation li:last-child {
+                border-bottom: none;
+            }
+
+            .menu-navigation a {
+                display: block;
+                width: 100%;
+            }
+
+            .section-titre {
+                font-size: 2rem;
+                margin-bottom: 35px;
+            }
+
+            .section-titre::after {
+                width: 60px;
+            }
+
+            /* Accueil */
+            .section-accueil {
+                padding-top: 100px;
+                padding-bottom: 50px;
+            }
+
+            .accueil-titre {
+                font-size: 2.3rem;
+            }
+
+            .accueil-description {
+                font-size: 1rem;
+            }
+
+            .avatar-container {
+                width: 240px;
+                height: 240px;
+            }
+
+            .avatar-icon {
+                font-size: 7rem;
+            }
+
+            /* À propos */
+            .section-a-propos {
+                padding: 70px 0;
+            }
+
+            .a-propos-titre {
+                font-size: 1.8rem;
+            }
+
+            .a-propos-paragraphe {
+                font-size: 1rem;
+            }
+
+            .code-container {
+                padding: 20px;
+            }
+
+            .code-line {
+                font-size: 0.85rem;
+            }
+
+            /* Compétences */
+            .section-competences {
+                padding: 70px 0;
+            }
+
+            .competences-grille {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 20px;
+            }
+
+            .competence-carte {
+                padding: 25px;
+            }
+
+            .competence-icone {
+                width: 70px;
+                height: 70px;
+                font-size: 2.5rem;
+            }
+
+            .competence-titre {
+                font-size: 1.3rem;
+            }
+
+            /* Projets */
+            .section-projets {
+                padding: 70px 0;
+            }
+
+            .projets-grille {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .projet-titre {
+                font-size: 1.4rem;
+            }
+
+            /* Contact */
+            .section-contact {
+                padding: 70px 0;
+            }
+
+            .contact-info-titre {
+                font-size: 1.5rem;
+            }
+
+            .contact-info-carte {
+                padding: 25px;
+            }
+
+            .contact-formulaire {
+                padding: 25px;
+            }
+
+            .bouton {
+                padding: 10px 25px;
+                font-size: 0.95rem;
+            }
+        }
+
+        /* Mobiles (320px - 480px) */
+        @media (max-width: 480px) {
+            .conteneur {
+                width: 100%;
+                padding: 0 15px;
+            }
+
+            .section-titre {
+                font-size: 1.8rem;
+                margin-bottom: 30px;
+            }
+
+            .section-titre::after {
+                width: 50px;
+                height: 3px;
+            }
+
+            /* En-tête */
+            .logo {
+                font-size: 1.3rem;
+            }
+
+            .menu-navigation {
+                top: 60px;
+            }
+
+            /* Accueil */
+            .section-accueil {
+                padding-top: 80px;
+                padding-bottom: 40px;
+            }
+
+            .accueil-titre {
+                font-size: 1.9rem;
+                margin-bottom: 15px;
+            }
+
+            .accueil-description {
+                font-size: 0.95rem;
+                margin-bottom: 25px;
+            }
+
+            .avatar-container {
+                width: 200px;
+                height: 200px;
+            }
+
+            .avatar-icon {
+                font-size: 6rem;
+            }
+
+            /* À propos */
+            .section-a-propos {
+                padding: 60px 0;
+            }
+
+            .a-propos-titre {
+                font-size: 1.6rem;
+            }
+
+            .a-propos-paragraphe {
+                font-size: 0.95rem;
+                line-height: 1.6;
+            }
+
+            .code-container {
+                padding: 15px;
+            }
+
+            .code-lines {
+                padding-left: 25px;
+            }
+
+            .code-line {
+                font-size: 0.75rem;
+                margin-bottom: 8px;
+            }
+
+            /* Compétences */
+            .section-competences {
+                padding: 60px 0;
+            }
+
+            .competences-grille {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .competence-carte {
+                padding: 20px;
+            }
+
+            .competence-icone {
+                width: 60px;
+                height: 60px;
+                font-size: 2rem;
+                margin-bottom: 15px;
+            }
+
+            .competence-titre {
+                font-size: 1.2rem;
+                margin-bottom: 10px;
+            }
+
+            .competence-description {
+                font-size: 0.9rem;
+            }
+
+            /* Projets */
+            .section-projets {
+                padding: 60px 0;
+            }
+
+            .projets-grille {
+                gap: 20px;
+            }
+
+            .projet-image {
+                height: 180px;
+            }
+
+            .projet-icon {
+                font-size: 3.5rem;
+            }
+
+            .projet-info {
+                padding: 15px;
+            }
+
+            .projet-titre {
+                font-size: 1.3rem;
+                margin-bottom: 8px;
+            }
+
+            .projet-description {
+                font-size: 0.9rem;
+                margin-bottom: 15px;
+            }
+
+            /* Contact */
+            .section-contact {
+                padding: 60px 0;
+            }
+
+            .contact-info-carte {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+
+            .contact-info-titre {
+                font-size: 1.3rem;
+                margin-bottom: 15px;
+            }
+
+            .contact-info-item {
+                font-size: 0.9rem;
+                margin-bottom: 12px;
+            }
+
+            .contact-info-icone {
+                width: 35px;
+                height: 35px;
+                margin-right: 12px;
+                font-size: 0.9rem;
+            }
+
+            .contact-formulaire {
+                padding: 20px;
+            }
+
+            .formulaire-groupe {
+                margin-bottom: 15px;
+            }
+
+            .formulaire-label {
+                font-size: 0.95rem;
+                margin-bottom: 6px;
+            }
+
+            .formulaire-input,
+            .formulaire-textarea {
+                padding: 10px;
+                font-size: 0.95rem;
+            }
+
+            .formulaire-textarea {
+                height: 120px;
+            }
+
+            .bouton {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+                width: 100%;
+            }
+
+            /* Footer */
+            .pied-de-page {
+                padding: 30px 0;
+            }
+
+            .pied-de-page .logo {
+                font-size: 1.4rem;
+            }
+
+            .liens-sociaux {
+                gap: 15px;
+                margin: 15px 0;
+            }
+
+            .lien-social {
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
+            }
+
+            .copyright {
+                font-size: 0.8rem;
+                margin-top: 15px;
+            }
+        }
+
+        /* Très petits écrans (< 360px) */
+        @media (max-width: 360px) {
+            .section-titre {
+                font-size: 1.6rem;
+            }
+
+            .accueil-titre {
+                font-size: 1.7rem;
+            }
+
+            .avatar-container {
+                width: 180px;
+                height: 180px;
+            }
+
+            .avatar-icon {
+                font-size: 5rem;
+            }
+
+            .code-line {
+                font-size: 0.7rem;
+            }
+
+            .a-propos-titre {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- En-tête -->
+    <header class="en-tete">
+        <div class="conteneur en-tete-contenu">
+            <div class="logo">Dev<span>Portfolio</span></div>
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav class="menu-navigation" id="menuNav">
+                <ul>
+                    <li><a href="#accueil" onclick="closeMenu()">Accueil</a></li>
+                    <li><a href="#a-propos" onclick="closeMenu()">À propos</a></li>
+                    <li><a href="#competences" onclick="closeMenu()">Compétences</a></li>
+                    <li><a href="#projets" onclick="closeMenu()">Projets</a></li>
+                    <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Section Accueil -->
+    <section id="accueil" class="section-accueil">
+        <div class="conteneur accueil-contenu">
+            <div class="accueil-texte">
+                <h1 class="accueil-titre">Bonjour, je suis <span>Clarisse</span></h1>
+                <p class="accueil-description">Je conçois des applications web et interfaces interactives avec passion. Parallèlement, je me forme en data analytics pour développer mes compétences dans l’analyse et l’interprétation des données, dans tous types de domaines.</p>
+                <a href="#projets" class="bouton">Voir mes projets</a>
+            </div>
+            <div class="accueil-image">
+                <div class="avatar-container">
+                    <i class="fas fa-user avatar-icon"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section À propos -->
+    <section id="a-propos" class="section-a-propos">
+        <div class="conteneur">
+            <h2 class="section-titre">À propos de moi</h2>
+            <div class="a-propos-contenu">
+                <div class="a-propos-image">
+                    <div class="code-container">
+                        <div class="code-lines">
+                            <div class="code-line"><span class="code-comment">// À propos de moi</span></div>
+                            <div class="code-line"><span class="code-keyword">const</span> <span class="code-variable">developpeur</span> = {</div>
+                            <div class="code-line">&nbsp;&nbsp;nom: <span class="code-string">"Clarisse"</span>,</div>
+                            <div class="code-line">&nbsp;&nbsp;specialite: <span class="code-string">"Développement Web"</span>,</div>
+                            <div class="code-line">&nbsp;&nbsp;technologies: [</div>
+                            <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-string">"Html css"</span>,</div>
+                            <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-string">"js"</span>,</div>
+                            <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-string">"Vue.js"</span>,</div>
+                            <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-string">"Tailwind CSS"</span>,</div>
+                            <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-string">"PHP"</span></div>
+                            <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-string">"LARAVEL"</span></div>
+                            <div class="code-line">&nbsp;&nbsp;],</div>
+                            <div class="code-line">&nbsp;&nbsp;passion: <span class="code-string">"Créer des expériences utilisateur exceptionnelles"</span></div>
+                            <div class="code-line">};</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="a-propos-texte">
+                    <h3 class="a-propos-titre">Développeur Web </h3>
+                    <p class="a-propos-paragraphe">Je suis un développeur passionné par la création d'applications web modernes et performantes. Spécialisé en Vue.js et Tailwind CSS pour le front-end, je possède également des compétences en PHP pour le développement back-end , LARAVEL.</p>
+                    <p class="a-propos-paragraphe">Mon approche combine créativité et rigueur technique pour créer des solutions qui allient esthétique et fonctionnalité. Je crois en la puissance du code bien structuré et des designs intuitifs.</p>
+                    <p class="a-propos-paragraphe">En constante évolution, je m'efforce d'apprendre de nouvelles technologies et de perfectionner mes compétences pour répondre aux besoins des projets les plus exigeants. Parallèlement, je me forme en data analyst afin de développer mes compétences en analyse et en interprétation des données, dans tous types de domaines.</p>
+                    <a href="#contact" class="bouton">Me contacter</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Compétences -->
+    <section id="competences" class="section-competences">
+        <div class="conteneur">
+            <h2 class="section-titre">Mes compétences</h2>
+            <div class="competences-grille">
+                <div class="competence-carte">
+                    <div class="competence-icone html">
+                        <i class="fab fa-html5"></i>
+                    </div>
+                    <h3 class="competence-titre">HTML5</h3>
+                    <p class="competence-description">Structure sémantique des pages web. Accessibilité et référencement naturel.</p>
+                </div>
+                <div class="competence-carte">
+                    <div class="competence-icone css">
+                        <i class="fab fa-css3-alt"></i>
+                    </div>
+                    <h3 class="competence-titre">CSS3 & Tailwind</h3>
+                    <p class="competence-description">Styles, animations et mises en page responsives. Flexbox, Grid Layout et Tailwind CSS.</p>
+                </div>
+                <div class="competence-carte">
+                    <div class="competence-icone js">
+                        <i class="fab fa-js"></i>
+                    </div>
+                    <h3 class="competence-titre">JavaScript</h3>
+                    <p class="competence-description">Interactivité des pages web. Manipulation du DOM et gestion d'événements.</p>
+                </div>
+                <div class="competence-carte">
+                    <div class="competence-icone vue">
+                        <i class="fab fa-vuejs"></i>
+                    </div>
+                    <h3 class="competence-titre">Vue.js</h3>
+                    <p class="competence-description">Création d'applications web interactives avec Vue.js, utilisation des composants et de Vue Router.</p>
+                </div>
+                <div class="competence-carte">
+                    <div class="competence-icone php">
+                        <i class="fab fa-php"></i>
+                    </div>
+                    <h3 class="competence-titre">PHP Backend</h3>
+                    <p class="competence-description">Gestion de formulaires et connexions à des bases de données. Requêtes HTTP et validation de données.</p>
+                </div>
+                <div class="competence-carte">
+                    <div class="competence-icone git">
+                    <i class="fa-brands fa-laravel" style="color: #f20707;"></i>
+                    </div>
+                    <h3 class="competence-titre">Laravel</h3>
+                    <p class="competence-description">Développement back-end avec Laravel pour créer des applications web fonctionnelles, sécurisées et évolutives.</p>
+                </div>
+                 <div class="competence-carte">
+                    <div class="competence-icone git">
+                        <i class="fab fa-git-alt"></i>
+                    </div>
+                    <h3 class="competence-titre">Git</h3>
+                    <p class="competence-description">Gestion de versions et collaboration. Commandes de base et workflow GitHub.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projets" class="section-projets">
+        <div class="conteneur">
+            <h2 class="section-titre">Mes projets</h2>
+            <div class="projets-grille">
+                <div class="projet-carte">
+                    <div class="projet-image" style="background: linear-gradient(135deg, #41b883, #34495e);">
+                        <i class="fab fa-vuejs projet-icon"></i>
+                    </div>
+                    <div class="projet-info">
+                        <h3 class="projet-titre">Application Vue.js</h3>
+                        <p class="projet-description">Application e-commerce avec Vue.js et API RESTful. Utilisation de composants réutilisables et gestion d'état.</p>
+                        <a href="#" class="bouton">Voir le projet</a>
+                    </div>
+                </div>
+                <div class="projet-carte">
+                    <div class="projet-image" style="background: linear-gradient(135deg, #777bb4, #34495e);">
+                        <i class="fab fa-php projet-icon"></i>
+                    </div>
+                    <div class="projet-info">
+                        <h3 class="projet-titre">Système de gestion</h3>
+                        <p class="projet-description">Application PHP avec base de données pour la gestion de contenu. Formulaires sécurisés et validation côté serveur.</p>
+                        <a href="#" class="bouton">Voir le projet</a>
+                    </div>
+                </div>
+                <div class="projet-carte">
+                    <div class="projet-image" style="background: linear-gradient(135deg, #38bdf8, #34495e);">
+                        <i class="fas fa-wind projet-icon"></i>
+                    </div>
+                    <div class="projet-info">
+                        <h3 class="projet-titre">Interface avec Tailwind</h3>
+                        <p class="projet-description">Tableau de bord moderne développé avec Tailwind CSS. Design responsive et composants personnalisés.</p>
+                        <a href="/tailwindCSS/TAIL.html" class="bouton">Voir le projet</a>
+                    </div>
+                </div>
+                  <div class="projet-carte">
+                    <div class="projet-image" style="background: linear-gradient(135deg, #cc5353, #da0a0a);">
+                        <i class="fa-brands fa-laravel projet-icon" style="color: #fafafa;"></i>
+                    </div>
+                    <div class="projet-info">
+                        <h3 class="projet-titre">Site E-Commerce avec Laravel</h3>
+                        <p class="projet-description">Site e-commerce développé avec Laravel, intégrant la gestion des produits, des commandes et une interface responsive.</p>
+                        <a href="/tailwindCSS/TAIL.html" class="bouton">Voir le projet</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Contact -->
+    <section id="contact" class="section-contact">
+        <div class="conteneur">
+            <h2 class="section-titre">Contactez-moi</h2>
+            <div class="contact-contenu">
+                <div class="contact-info">
+                    <div class="contact-info-carte">
+                        <h3 class="contact-info-titre">Mes coordonnées</h3>
+                        <div class="contact-info-item">
+                            <div class="contact-info-icone">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <p>adetouclaris@gmail.com</p>
+                        </div>
+                        <div class="contact-info-item">
+                            <div class="contact-info-icone">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <p>+228 97 37 96 63</p>
+                        </div>
+                        <div class="contact-info-item">
+                            <div class="contact-info-icone">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <p>Lomé, Togo</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-carte">
+                        <h3 class="contact-info-titre">Disponibilité</h3>
+                        <p>Je suis disponible pour des projets freelance et des opportunités d'apprentissage.</p>
+                        <p>N'hésitez pas à me contacter pour discuter de votre projet ou pour toute question !</p>
+                    </div>
+                </div>
+                <div class="contact-formulaire">
+                    <form>
+                        <div class="formulaire-groupe">
+                            <label class="formulaire-label" for="nom">Nom</label>
+                            <input type="text" id="nom" class="formulaire-input" placeholder="Votre nom" required>
+                        </div>
+                        <div class="formulaire-groupe">
+                            <label class="formulaire-label" for="email">Email</label>
+                            <input type="email" id="email" class="formulaire-input" placeholder="Votre email" required>
+                        </div>
+                        <div class="formulaire-groupe">
+                            <label class="formulaire-label" for="sujet">Sujet</label>
+                            <input type="text" id="sujet" class="formulaire-input" placeholder="Sujet de votre message">
+                        </div>
+                        <div class="formulaire-groupe">
+                            <label class="formulaire-label" for="message">Message</label>
+                            <textarea id="message" class="formulaire-textarea" placeholder="Votre message" required></textarea>
+                        </div>
+                        <button type="submit" class="bouton">Envoyer le message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pied de page -->
+    <footer class="pied-de-page">
+        <div class="conteneur pied-de-page-contenu">
+            <div class="logo">DevPortfolio</div>
+            <div class="liens-sociaux">
+                <a href="https://www.linkedin.com/in/clarisse-adetou-601b15291?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="lien-social"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/CLARAlove12" class="lien-social"><i class="fab fa-github"></i></a>
+            </div>
+            <p class="copyright">© 2023 Portfolio Développeur Web. @clarisseADETOU.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle menu mobile
+        function toggleMenu() {
+            const menu = document.getElementById('menuNav');
+            menu.classList.toggle('active');
+        }
+
+        function closeMenu() {
+            const menu = document.getElementById('menuNav');
+            menu.classList.remove('active');
+        }
+
+        // Animation douce lors du clic sur les liens de navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Animation au défilement
+        window.addEventListener('scroll', function() {
+            const elements = document.querySelectorAll('.competence-carte, .projet-carte');
+            
+            elements.forEach(element => {
+                const position = element.getBoundingClientRect();
+                if(position.top < window.innerHeight - 100) {
+                    element.style.opacity = "1";
+                    element.style.transform = "translateY(0)";
+                }
+            });
+        });
+        
+        // Initialisation des animations
+        window.addEventListener('load', function() {
+            const elements = document.querySelectorAll('.competence-carte, .projet-carte');
+            elements.forEach(element => {
+                element.style.opacity = "0";
+                element.style.transform = "translateY(20px)";
+                element.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+            });
+            
+            setTimeout(function() {
+                window.dispatchEvent(new Event('scroll'));
+            }, 100);
+        });
+    </script>
+</body>
+</html>
